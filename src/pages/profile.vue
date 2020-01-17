@@ -31,13 +31,16 @@
 export default {
   data () {
     return {
-      id: ''
+      // id: ''
     }
   },
   created () {
-    this.id = localStorage.getItem('user_id')
-    console.log(this.id)
-    const res = this.$axios.get('/user/:id', { id: this.id })
+    const userId = localStorage.getItem('user_id')
+    // console.log(this.id)
+    const token = localStorage.getItem('token')
+    const res = this.$axios.get(`/user/${userId}`, { headers: {
+      Authorization: token
+    } })
     console.log(res)
   },
   methods: {
