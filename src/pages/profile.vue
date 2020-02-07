@@ -1,17 +1,18 @@
 <template>
   <div class="profile">
-    <div class="user-info">
+    <div class="user-info" @click="$router.push('/edit-profile')">
       <!-- 头像 -->
       <div class="avatar">
-        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1579179642709&di=2ed8d4155855262c5ae43c163a842543&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fmobile%2F2019-01-30%2F5c511a2c0dc0d.jpg" alt="">
+        <img :src="avater" alt="">
       </div>
       <!-- 信息 -->
       <div class="info">
         <p>
-          <i class="iconfont iconxingbienv"></i>
-          <span>火星网友</span>
+          <i v-if="profile.gender === 1" class="iconfont iconxingbienan"></i>
+          <i v-else class="iconfont iconxingbienv"></i>
+          <span>{{profile.nickname}}</span>
         </p>
-        <p>2020.1.16</p>
+        <p>{{profile.create_date | time}}</p>
       </div>
       <!-- 右箭头 -->
       <div class="icon">
@@ -20,32 +21,67 @@
     </div>
     <div class="list">
       <hm-nav name="我的关注" desc="关注的用户" @click="focus"></hm-nav>
-      <hm-nav name="我的跟帖" desc="跟帖/回复"></hm-nav>
-      <hm-nav name="我的收藏" desc="文章/视频"></hm-nav>
-      <hm-nav name="设置"></hm-nav>
+      <hm-nav name="我的跟帖" desc="跟帖/回复" @click="$router.push('my-comments')"></hm-nav>
+      <hm-nav name="我的收藏" desc="文章/视频" @click="$router.push('my-star')"></hm-nav>
+      <hm-nav name="设置" @click="$router.push('/edit-profile')"></hm-nav>
+      <hm-nav name="退出登录" @click="logout"></hm-nav>
     </div>
   </div>
 </template>
 
 <script>
+// 导入一张图片
+import img from '../assets/01.jpg'
 export default {
   data () {
     return {
-      // id: ''
+      profile: {},
+      loding: false
     }
   },
-  created () {
+  async created () {
     const userId = localStorage.getItem('user_id')
     // console.log(this.id)
     const token = localStorage.getItem('token')
-    const res = this.$axios.get(`/user/${userId}`, { headers: {
+    const res = await this.$axios.get(`/user/${userId}`, { headers: {
       Authorization: token
     } })
-    console.log(res)
+    this.profile = res.data.data
+    console.log(this.profile)
+    this.loding = true
   },
   methods: {
+    async logout () {
+      // async与await await知会等成功的结果，如果promise失败了，会抛出异常
+      // try..catch
+      try {
+        await this.$dialog.confirm({
+          title: '温馨提示',
+          message: '你确定要退出本系统么？'
+        })
+        // 点击确定
+        // 删除token
+        localStorage.removeItem('token')
+        localStorage.removeItem('user_id')
+        // 跳转到登录页
+        this.$router.push('/login')
+        // 给一个提示消息
+        this.$toast.success('退出成功')
+      } catch {
+        this.$toast('操作取消')
+      }
+    },
     focus () {
       this.$router.push('/focus')
+    }
+  },
+  computed: {
+    avater () {
+      if (this.profile.head_img) {
+        return this.$axios.defaults.baseURL + this.profile.head_img
+      } else {
+        return img
+      }
     }
   }
 }
@@ -86,8 +122,11 @@ export default {
         color: #999;
         margin-top: 5px;
       }
-      i{
-        color: #75B9EB;
+      .iconxingbienan {
+        color: rgb(171, 213, 242);
+      }
+      .iconxingbienv {
+        color: pink;
       }
     }
   }

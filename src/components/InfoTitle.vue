@@ -1,6 +1,6 @@
 <template>
-  <div class="info-title" @click="this.$router.go(-1)">
-      <div class="left"><i class="iconfont iconjiantou2"></i></div>
+  <div class="info-title">
+      <div class="left" @click="$router.back()"><i class="iconfont iconjiantou2"></i></div>
      <div class="text"><slot></slot></div>
      <div class="right"></div>
     </div>
@@ -10,6 +10,7 @@
 .info-title{
     display: flex;
     margin-top: 5px;
+    border-bottom: 1px solid #ccc;
     .left,.right{
       width: 40px;
       height: 40px;
