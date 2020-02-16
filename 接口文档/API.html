@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>API</title>
+  <!-- <link rel="stylesheet" href="lib/css/monokai-sublime.css"> -->
+  <link rel="stylesheet" href="lib/css/default.min.css">
+  <link rel="stylesheet" href="lib/css/vs2015.css">
+  <link rel="stylesheet" href="lib/css/zTreeStyle/zTreeStyle.css">
+  <link rel="stylesheet" href="lib/css/base.css">
+  <link rel="stylesheet" href="lib/css/index.css">
+</head>
+
+<body>
+  <div style='width:25%;'>
+    <ul id="tree" class="ztree" style='width:100%'>
+
+    </ul>
+  </div>
+  <div id='readme' style='width:70%;margin-left:20%;'>
+    <article class='markdown-body'><h1 id="-api">新闻 API</h1>
+<h2 id="-">统一说明</h2>
+<p>以下说明在本套接口中通用。</p>
+<h3 id="-">分页</h3>
+<blockquote>
+<p>URL参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pageIndex</td>
+<td>1</td>
+<td>当前页数</td>
+</tr>
+<tr>
+<td>pageSize</td>
+<td>10</td>
+<td>数据条数</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<pre><code>http://localhost:3000/list?pageIndex=1&amp;pageSize=10
+</code></pre><h3 id="-">授权认证</h3>
+<blockquote>
+<p>headers头信息参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authorization</td>
+<td>空</td>
+<td>用户登录返回的token</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-">用户</h2>
+<h3 id="-">登录</h3>
+<blockquote>
+<p>接口类型:【POST】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/login
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>说明</th>
+<th>必传</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>空</td>
+<td>用户名 / 手机</td>
+<td>是</td>
+</tr>
+<tr>
+<td>password</td>
+<td>空</td>
+<td>密码</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-">注册</h3>
+<blockquote>
+<p>接口类型:【POST】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/register
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>说明</th>
+<th>必传</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>空</td>
+<td>用户名 / 手机</td>
+<td>是</td>
+</tr>
+<tr>
+<td>password</td>
+<td>空</td>
+<td>密码</td>
+<td>是</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>空</td>
+<td>昵称</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-">用户详情</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/user/:id
+</code></pre><blockquote>
+<p>URL动态参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>说明</th>
+<th>必传</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>用户id</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<p>用户详情对象</p>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;获取成功&quot;,
+    &quot;data&quot;: {
+        &quot;id&quot;: 1,                        //  唯一id
+        &quot;username&quot;: &quot;10086&quot;,            
+        &quot;password&quot;: &quot;123&quot;,
+        &quot;nickname&quot;: &quot;官方认证火星网友&quot;,
+        &quot;head_img&quot;: &quot;&quot;,                    // 头像
+        &quot;gender&quot;: 1,                    // 性别，男1，女0
+        &quot;post_comments&quot;: 0,                // 发布评论条数
+        &quot;post_star&quot;: 0,                    // 收藏文章条数
+    }
+}
+</code></pre>
+<h3 id="-">编辑用户信息</h3>
+<blockquote>
+<p>接口类型:【POST】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/user_update/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td>username</td>
+<td>空</td>
+<td>否</td>
+<td>用户名</td>
+</tr>
+<tr>
+<td>password</td>
+<td>空</td>
+<td>否</td>
+<td>密码</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>空</td>
+<td>否</td>
+<td>昵称</td>
+</tr>
+<tr>
+<td>head_img</td>
+<td>空</td>
+<td>否</td>
+<td>头像</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>空</td>
+<td>否</td>
+<td>性别</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;修改成功&quot;,
+    &quot;data&quot;: {}
+}
+</code></pre>
+<h3 id="-">关注用户</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/user_follows/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>关注的用户id</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;关注成功&quot;
+}
+</code></pre>
+<h3 id="-">取消关注用户</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/user_unfollow/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>关注的用户id</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;取消关注成功&quot;
+}
+</code></pre>
+<h3 id="-">用户关注列表</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/user_follows
+</code></pre><blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 3,
+            &quot;username&quot;: &quot;100862&quot;,
+            &quot;password&quot;: &quot;123&quot;,
+            &quot;nickname&quot;: &quot;娱乐在线&quot;,
+            &quot;head_img&quot;: &quot;/uploads/image/IMG1568705287936.jpeg&quot;
+        }
+    ]
+}
+</code></pre>
+<h3 id="-">用户评论列表</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/user_comments
+</code></pre><blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;&quot;,
+    &quot;data&quot;: [
+        &quot;id&quot;: 1,
+        &quot;content&quot;: &quot;啊信是张信哲吗？张信哲是不是的张学友弟弟？&quot;,
+        &quot;post&quot;: {}
+    ]
+}
+</code></pre>
+<h3 id="-">收藏文章列表</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/user_star
+</code></pre><blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;&quot;,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;阿信分享《说好不哭》幕后故事：只听一次就配唱&quot;,
+            &quot;content&quot;: &quot;&quot;,
+            &quot;type&quot;: 1,        // 文章类型
+            &quot;cover&quot;: [],     // 封面
+            &quot;user&quot;: {},      // 文章作者
+            &quot;comments&quot;: []     // 文章评论
+        }
+    ]
+}
+</code></pre>
+<h2 id="-">新闻文章</h2>
+<h3 id="-">文章列表</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>category</td>
+<td>空</td>
+<td>否</td>
+<td>栏目id</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<pre><code>localhost:3000/post?pageIndex=1&amp;pageSize=2&amp;category=8
+</code></pre><blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;data&quot;: []
+}
+</code></pre>
+<h3 id="-">搜索文章</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post_search
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keyword</td>
+<td>空</td>
+<td>否</td>
+<td>搜索关键字</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<pre><code>localhost:3000/post_search?keyword=美女&amp;pageIndex=1&amp;pageSize=2
+</code></pre><blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;data&quot;: []
+}
+</code></pre>
+<h3 id="-">搜索推荐</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post_search_recommend
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keyword</td>
+<td>空</td>
+<td>否</td>
+<td>搜索关键字</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<pre><code>localhost:3000/post_search_recommend?keyword=美女
+</code></pre><blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;data&quot;: []
+}
+</code></pre>
+<h3 id="-">文章详情</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>文章id</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<pre><code>localhost:3000/post/1
+</code></pre><blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;data&quot;: {}
+}
+</code></pre>
+<h3 id="-">评论列表</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post_comment/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>文章id</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<pre><code>localhost:3000/post_comment/1
+</code></pre><blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;data&quot;: []
+}
+</code></pre>
+<h3 id="-">发布评论</h3>
+<blockquote>
+<p>接口类型:【POST】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post_comment/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>文章id</td>
+</tr>
+<tr>
+<td>content</td>
+<td>空</td>
+<td>是</td>
+<td>评论内容</td>
+</tr>
+<tr>
+<td>parent_id</td>
+<td>空</td>
+<td>否</td>
+<td>回复id</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;评论发布成功&quot;
+}
+</code></pre>
+<h3 id="-">收藏文章</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post_star/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>文章id</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;收藏成功&quot;
+}
+</code></pre>
+<h3 id="-">点赞文章</h3>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post_like/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>文章id</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;点赞成功&quot;
+}
+</code></pre>
+<h3 id="-">发布文章</h3>
+<p><code>管理后台使用，该接口栏目和封面图片参数可优化</code></p>
+<blockquote>
+<p>接口类型:【POST】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>空</td>
+<td>是</td>
+<td>文章标题</td>
+</tr>
+<tr>
+<td>content</td>
+<td>空</td>
+<td>是</td>
+<td>文章内容</td>
+</tr>
+<tr>
+<td>categories</td>
+<td>空数组</td>
+<td>是</td>
+<td>所属栏目ID集合</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>空数组</td>
+<td>是</td>
+<td>封面图片ID集合</td>
+</tr>
+<tr>
+<td>type</td>
+<td>1</td>
+<td>是</td>
+<td>1为文章，2为视频</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<pre><code class="lang-js">$.ajax({
+    ...,
+    data: {
+        title: &quot;标题&quot;,
+        content: &quot;内容&quot;,
+        categories: [1,10],
+           &quot;cover&quot;: [
+            {&quot;id&quot;: 8},
+            {&quot;id&quot;: 9},
+            {&quot;id&quot;: 10}
+        ],
+        &quot;type&quot;: 2
+    }
+})
+</code></pre>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;文章发布成功&quot;,
+    &quot;data&quot;: {}
+}
+</code></pre>
+<h3 id="-">编辑文章</h3>
+<p><code>管理后台使用，该接口栏目和封面图片参数可优化</code></p>
+<blockquote>
+<p>接口类型:【POST】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/post_update/:id
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:id</td>
+<td>空</td>
+<td>是</td>
+<td>文章</td>
+</tr>
+<tr>
+<td>title</td>
+<td>空</td>
+<td>是</td>
+<td>文章标题</td>
+</tr>
+<tr>
+<td>content</td>
+<td>空</td>
+<td>是</td>
+<td>文章内容</td>
+</tr>
+<tr>
+<td>categories</td>
+<td>空数组</td>
+<td>是</td>
+<td>所属栏目ID集合</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>空数组</td>
+<td>是</td>
+<td>封面图片ID集合</td>
+</tr>
+<tr>
+<td>type</td>
+<td>1</td>
+<td>是</td>
+<td>1为文章，2为视频</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;文章编辑成功&quot;,
+}
+</code></pre>
+<h2 id="-">文件上传</h2>
+<blockquote>
+<p>接口类型:【POST】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/upload
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td>空</td>
+<td>是</td>
+<td>文件资源</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;文件上传成功&quot;,
+    &quot;data&quot;: {
+        &quot;url&quot;: &quot;/uploads/image/IMG1568820150584.jpeg&quot;,
+        &quot;uid&quot;: 11,
+        &quot;id&quot;: 11
+    }
+}
+</code></pre>
+<h2 id="-">栏目</h2>
+<h3 id="-">栏目列表</h3>
+<p>该接口<strong>不强制要求登录，但是对于登录的用户，加上验证信息会返回该用户关注的栏目文章</strong></p>
+<blockquote>
+<p>接口类型:【GET】</p>
+<p>验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/category
+</code></pre><blockquote>
+<p>字段说明</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>is_top</td>
+<td>是否热门</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 999,
+            &quot;name&quot;: &quot;头条&quot;,
+            &quot;is_top&quot;: 1
+        },
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;热点&quot;,
+            &quot;is_top&quot;: 1
+        },
+        {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;女人&quot;,
+            &quot;is_top&quot;: 0
+        },
+
+    ]
+}
+</code></pre>
+<h3 id="-">添加栏目</h3>
+<blockquote>
+<p>接口类型:【POST】</p>
+<p>需要验证:【Authorization 】</p>
+<p>接口地址: </p>
+</blockquote>
+<pre><code>/category
+</code></pre><blockquote>
+<p>参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>必传</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>空</td>
+<td>是</td>
+<td>栏目名字</td>
+</tr>
+<tr>
+<td>is_top</td>
+<td>0</td>
+<td>否</td>
+<td>是否热门</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回</p>
+</blockquote>
+<pre><code class="lang-js">{
+    &quot;message&quot;: &quot;栏目添加成功&quot;,
+}
+</code></pre>
+</article>
+  </div>
+</body>
+</html>
+<script type="text/javascript" src="lib/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="lib/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="lib/js/ztree_toc.min.js"></script>
+<script type="text/javascript" src="lib/js/toc_conf.js"></script>
+<script src="lib/js/highlight.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // 代码高亮的js代码
+    hljs.initHighlightingOnLoad();
+
+    //生成侧边栏的代码
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+
+    var conf = eval(jquery_ztree_toc_opts);
+    $('#tree').ztree_toc(conf);
+  });
+</script>

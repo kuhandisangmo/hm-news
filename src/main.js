@@ -19,12 +19,14 @@ import HmNav from './components/HmNav.vue'
 import InfoTitle from './components/InfoTitle.vue'
 import FocusContent from './components/FocusContent.vue'
 import moment from 'moment'
+import HmArticle from './components/HmArticle.vue'
 
 Vue.component('HmButton', HmButton)
 Vue.component('HmInput', HmInput)
 Vue.component('HmNav', HmNav)
 Vue.component('InfoTitle', InfoTitle)
 Vue.component('FocusContent', FocusContent)
+Vue.component('HmArticle', HmArticle)
 
 Vue.use(vant)
 Vue.config.productionTip = false
