@@ -5,7 +5,7 @@
           <div class="left">
               <p class="txt-cut">{{post.title}}</p>
               <div class="moreimg">
-                  <img class="shiping" :src="post.cover[0].url" alt="">
+                  <img class="shiping" :src="$fixUrl(post.cover[0].url)" alt="">
                   <div class="box iconfont iconshipin"></div>
               </div>
               <div class="follow">
@@ -24,7 +24,7 @@
               </div>
           </div>
           <div class="right">
-              <img :src="post.cover[0].url" alt="">
+              <img :src="$fixUrl(post.cover[0].url)" alt="">
           </div>
       </div>
       <!-- 多张封面图 -->
@@ -32,7 +32,7 @@
           <div class="left">
               <p class="txt-cut">{{post.title}}</p>
               <div class="moreimg">
-                  <img v-for="item in post.cover" :key="item.id" :src="item.url" alt="">
+                  <img v-for="item in post.cover" :key="item.id" :src="$fixUrl(item.url)" alt="">
               </div>
               <div class="follow">
                   <span>{{post.user.nickname}}</span>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index'
+import store from './store'
 // 导入lib-flexible
 import 'lib-flexible'
 // 导入通用样式
@@ -71,6 +72,14 @@ axios.interceptors.request.use(function (config) {
   // 对请求错误做些什么
   return Promise.reject(error)
 })
+// 提供一个通用的处理路径的方法
+Vue.prototype.$fixUrl = function (url) {
+  if (url.startsWith('http')) {
+    return url
+  } else {
+    return axios.defaults.baseURL + url
+  }
+}
 // -----------------过滤器-----------------------------
 Vue.filter('time', function (input, format = 'YYYY-MM-DD') {
   return moment(input).format(format)
@@ -78,5 +87,6 @@ Vue.filter('time', function (input, format = 'YYYY-MM-DD') {
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

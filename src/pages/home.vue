@@ -118,6 +118,9 @@ export default {
       this.finished = false
       this.onLoad()
     }
+  },
+  destroyed () {
+    console.log('首页被销毁掉了')
   }
 }
 </script>

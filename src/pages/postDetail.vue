@@ -19,9 +19,9 @@
           </div>
           <!-- 如果type为2，新闻则为视频 -->
           <!-- 视频 -->
-          <div class="video" v-if="post.type===2">
+          <div class="video" v-if="post.type===2 && post.content.startsWith('http')">
               <!-- 因为有防盗链，导视频无法播放 -->
-              <video :src="post.content" controls></video>
+              <video :src="$fixUrl(post.content)" controls></video>
           </div>
           <div class="content" v-html="post.content" v-else></div>
           <!-- 赞和转发微信 -->

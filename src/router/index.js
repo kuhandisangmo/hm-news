@@ -12,6 +12,7 @@ import Home from '../pages/home.vue'
 import PostDetail from '../pages/postDetail.vue'
 import TabManager from '../pages/tabManager.vue'
 import Search from '../pages/search.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -48,7 +49,15 @@ const AuthUrls = [
   '/my-star'
 ]
 router.beforeEach(function (to, from, next) {
-// 判断用户是否登陆
+  // 1. 只要进入home组件，就需要缓存
+  if (to.name === 'home') {
+    store.commit('cache', 'home')
+  }
+  // 2. 离开的判断  如果是从home离开，并且不是去post-detail，那么就不缓存
+  if (from.name === 'home' && to.name !== 'post-detail') {
+    store.commit('uncache', 'home')
+  }
+  // 判断用户是否登陆
   const token = localStorage.getItem('token')
   // 如果去个人中心，需要判断是否登录
   //   如果有token，说明，登录了，继续
